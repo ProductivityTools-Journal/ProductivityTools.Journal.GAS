@@ -1,0 +1,20 @@
+function processDokument() {
+  //var doc = DocumentApp.openById('DOCUMENT_ID_GOES_HERE');
+
+}
+
+function processDirectory() {
+  var folders = DriveApp.getFoldersByName("Book notes").next();
+  var files = folders.getFiles()
+  while (files.hasNext()) {
+    file = files.next();
+    name = file.getName();
+    console.log(name);
+  }
+
+
+}
+
+function myFunction() {
+  processDirectory();
+}
