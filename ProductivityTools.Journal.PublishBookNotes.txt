@@ -1,6 +1,20 @@
 function processDokument(id) {
   var doc = DocumentApp.openById(id);
   var body=doc.getBody().getText();
+  var paragraphs=doc.getParagraphs();
+  for(var i=1;i<paragraphs.length;i++){
+    var x=paragraphs[i].getText();
+    var y=paragraphs[i].getType().toString();
+    var z=paragraphs[i].getAttributes();
+    //console.log(z.BACKGROUND_COLOR)
+    if (z.BACKGROUND_COLOR=="#fde096" && x!="")
+    {
+      console.log(x);
+      console.log(z.BACKGROUND_COLOR)
+      
+    }
+    
+  }
   console.log(body);
 }
 
