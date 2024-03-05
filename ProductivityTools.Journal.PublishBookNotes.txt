@@ -1,21 +1,28 @@
+function pushParagraphsToJournalApi(paragraphs)
+{
+  for(var i=0;i<paragraphs.length;i++){
+    console.log(paragraphs[i]);
+  }
+}
+
 function processDokument(id) {
   var doc = DocumentApp.openById(id);
   var body=doc.getBody().getText();
   var paragraphs=doc.getParagraphs();
+  var resultParagraphts=[]
   for(var i=1;i<paragraphs.length;i++){
-    var x=paragraphs[i].getText();
-    var y=paragraphs[i].getType().toString();
-    var z=paragraphs[i].getAttributes();
+    var paragraphText=paragraphs[i].getText();
+    var paragraphAtributes=paragraphs[i].getAttributes();
     //console.log(z.BACKGROUND_COLOR)
-    if (z.BACKGROUND_COLOR=="#fde096" && x!="")
+    if (paragraphAtributes.BACKGROUND_COLOR=="#fde096" && paragraphText!="")
     {
-      console.log(x);
-      console.log(z.BACKGROUND_COLOR)
+      //console.log(x);
+      //console.log(z.BACKGROUND_COLOR)
+      resultParagraphts.push(paragraphText);
       
     }
-    
   }
-  console.log(body);
+  pushParagraphsToJournalApi(resultParagraphts);
 }
 
 function processDirectory() {
