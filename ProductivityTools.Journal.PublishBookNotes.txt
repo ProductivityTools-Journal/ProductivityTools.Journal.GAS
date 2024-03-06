@@ -8,6 +8,10 @@ function pushParagraphsToJournalApi(paragraphs)
 function processDokument(id) {
   var doc = DocumentApp.openById(id);
   var body=doc.getBody().getText();
+  var x=doc.getHeader();
+  var name=doc.getName();
+  var startPosition=name.indexOf("„")
+  var bookName=name.substring(startPosition+1,name.length-1)
   var paragraphs=doc.getParagraphs();
   var resultParagraphts=[]
   for(var i=1;i<paragraphs.length;i++){
