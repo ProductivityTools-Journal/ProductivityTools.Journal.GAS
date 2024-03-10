@@ -1,7 +1,38 @@
+function CreateJournal(idKey)
+{
+    Logger.log(idKey);
+ 
+
+  var url='https://localhost:8001/api/Meetings/SaveBookJournal'
+
+  //var parentId=PropertiesService.getScriptProperties().getProperty("ParentId");
+  var bearer="Bearer "+idKey;
+  var data = {"ParentJournalId":2,
+    "JournalName":"fdsa"
+  }
+  var options = {
+    'method' : 'post',
+    'contentType': 'application/json',
+    // 'headers':{
+    //   'authorization':bearer
+    //  },
+    'payload' : JSON.stringify(data)
+  };
+
+  Logger.log(url);
+  Logger.log(options);
+
+  var response=UrlFetchApp.fetch(url, options);
+  var responseText=response.getContentText()
+  Logger.log(responseText);
+  return responseText;
+}
+
 function pushParagraphsToJournalApi(paragraphs)
 {
   for(var i=0;i<paragraphs.length;i++){
     console.log(paragraphs[i]);
+    CreateJournal("xx",)
   }
 }
 
