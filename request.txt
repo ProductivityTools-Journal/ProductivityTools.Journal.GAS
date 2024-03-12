@@ -1,0 +1,23 @@
+ $x=Invoke-WebRequest -UseBasicParsing -Uri "https://apijournal.productivitytools.top:8022/api/Meetings/SaveBookJournal" `
+>> -Method "POST" `
+>> -WebSession $session `
+>> -Headers @{
+>> "authority"="apijournal.productivitytools.top:8022"
+>>   "method"="POST"
+>>   "path"="/api/Meetings/SaveBookJournal"
+>>   "scheme"="https"
+>>   "accept"="application/json, text/plain, */*"
+>>   "accept-encoding"="gzip, deflate, br"
+>>   "accept-language"="pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7"
+>>   "authorization"="Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6ImViYzIwNzkzNTQ1NzExODNkNzFjZWJlZDI5YzU1YmVmMjdhZDJjY2IiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoiUGF3ZWwgV3VqY3p5ayIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4eVl0dXdzTTQtZDM0b2xWWi1MdDNkc2RmcGZONm01VXJMNlMtQT1zOTYtYyIsImlzcyI6Imh0dHBzOi8vc2VjdXJldG9rZW4uZ29vZ2xlLmNvbS9wdGpvdXJuYWwtYjUzYjAiLCJhdWQiOiJwdGpvdXJuYWwtYjUzYjAiLCJhdXRoX3RpbWUiOjE3MDYwODc5OTgsInVzZXJfaWQiOiJvY1RGd21lMEFxWXd4ckpzeXlOb0haWk9zYzgzIiwic3ViIjoib2NURndtZTBBcVl3eHJKc3l5Tm9IWlpPc2M4MyIsImlhdCI6MTcxMDc5Mjc4MSwiZXhwIjoxNzEwNzk2MzgxLCJlbWFpbCI6InB3dWpjenlrQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmaXJlYmFzZSI6eyJpZGVudGl0aWVzIjp7Imdvb2dsZS5jb20iOlsiMTAzNDE5MjE5NTI1NDQ4MDczODg1Il0sImVtYWlsIjpbInB3dWpjenlrQGdtYWlsLmNvbSJdfSwic2lnbl9pbl9wcm92aWRlciI6Imdvb2dsZS5jb20ifX0.d7ajLlRU-wSNVcqEmnJMGKUd9IMQAu_VTWUkVY7W_COrXKo6WgrtEtG2DS1HvUB4dvEXvgp2wB_u4pKc0D4Y5cq_JwJCWPBOego0x_DtlK2mp3fzasaBPddvU74HXE_C1GjOLC_xBeSiylqg6iTGrZ_Saw8EgHtC0GJzvZTPvsqzZpEz8LXmgGatmIz7wfPL9vPazf8UHs-J_3wfQqUCHZZ0V1_CZvKhgxC56-wRYeiQLDNj0xc9ceWmdZkj7l6wqQXvXEsekTIaiFe8oPKjKmsGkQYx5f7CTjRhgloNBQwE9sfcfdLebdN7qVEJf9mdyoTZjO9FqJvuHEhZjZPNEQ"
+>>   "origin"="https://meetingsweb.z13.web.core.windows.net"
+>>   "referer"="https://meetingsweb.z13.web.core.windows.net/"
+>>   "sec-ch-ua"="`"Not A(Brand`";v=`"99`", `"Google Chrome`";v=`"121`", `"Chromium`";v=`"121`""
+>>   "sec-ch-ua-mobile"="?0"
+>>   "sec-ch-ua-platform"="`"Windows`""
+>>   "sec-fetch-dest"="empty"
+>>   "sec-fetch-mode"="cors"
+>>   "sec-fetch-site"="cross-site"
+>> } `
+>> -ContentType "application/json" `
+>> -Body "{`"Id`":1593,`"DrillDown`":true}"
