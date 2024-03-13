@@ -21,3 +21,17 @@
 >> } `
 >> -ContentType "application/json" `
 >> -Body "{`"Id`":1593,`"DrillDown`":true}"
+
+
+
+
+PS D:\github\Powershell> Invoke-WebRequest -UseBasicParsing -Uri "https://apijournal.productivitytools.top:8022/api/Meetings/SaveBookJournal" `
+>> -Method "POST" `
+>> -ContentType "application/json" `
+>> -Body "{`"Id`":1593,`"DrillDown`":true}"
+
+
+Invoke-WebRequest -UseBasicParsing -Uri "http://localhost:5002/api/Meetings/SaveBookJournal" `
+-Method "POST" `
+ -ContentType "application/json" `
+-Body "{`"ParentJournalId`":3,`"JournalName`":`"JournalName`"}"
