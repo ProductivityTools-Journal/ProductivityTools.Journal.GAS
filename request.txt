@@ -32,6 +32,6 @@ PS D:\github\Powershell> Invoke-WebRequest -UseBasicParsing -Uri "https://apijou
 
 
 Invoke-WebRequest -UseBasicParsing -Uri "http://localhost:5002/api/Meetings/SaveBookJournal" `
--Method "POST" `
+ -Method "POST" `
  -ContentType "application/json" `
--Body "{`"ParentJournalId`":3,`"JournalName`":`"JournalName`"}"
+ -Body "{`"ParentJournalId`":3,`"JournalName`":`"JournalName`",`"email`":`"pwujczyk@gmail.com`",`"Page`":{`"content`":`"xxx`",`"subject`":`"xxx3`"}}"
