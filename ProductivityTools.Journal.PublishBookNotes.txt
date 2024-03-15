@@ -1,14 +1,14 @@
-function CreateJournal(idKey)
+function CreateJournal(bookName,paragraph, idKey)
 {
     Logger.log(idKey);
  
 
-  var url='https://localhost:8001/api/Meetings/SaveBookJournal'
+  var url='https://apijournal.productivitytools.top:8022/api/Meetings/SaveBookJournal'
 
   //var parentId=PropertiesService.getScriptProperties().getProperty("ParentId");
   var bearer="Bearer "+idKey;
-  var data = {"ParentJournalId":2,
-    "JournalName":"fdsa"
+  var data = {"ParentJournalId":2636,
+    "JournalName":bookName,"email":"pwujczyk@gmail.com","Page":{"Content":paragraph,"subject":"xxxx"}
   }
   var options = {
     'method' : 'post',
@@ -28,11 +28,11 @@ function CreateJournal(idKey)
   return responseText;
 }
 
-function pushParagraphsToJournalApi(paragraphs)
+function pushParagraphsToJournalApi(bookName,paragraphs)
 {
   for(var i=0;i<paragraphs.length;i++){
     console.log(paragraphs[i]);
-    CreateJournal("xx",)
+    CreateJournal(bookName,paragraphs[i])
   }
 }
 
@@ -57,7 +57,7 @@ function processDokument(id) {
       
     }
   }
-  pushParagraphsToJournalApi(resultParagraphts);
+  pushParagraphsToJournalApi(bookName,resultParagraphts);
 }
 
 function processDirectory() {
