@@ -1,63 +1,71 @@
-function CreateJournal(bookName,paragraph, idKey)
-{
-    Logger.log(idKey);
- 
+function CreateJournal(bookName, paragraph, idKey) {
+  Logger.log(idKey);
 
-  var url='https://apijournal.productivitytools.top:8022/api/Meetings/SaveBookJournal'
+
+  var url = 'https://apijournal.productivitytools.top:8022/api/Meetings/SaveBookJournal'
 
   //var parentId=PropertiesService.getScriptProperties().getProperty("ParentId");
-  var bearer="Bearer "+idKey;
-  var data = {"ParentJournalId":2636,
-    "JournalName":bookName,"email":"pwujczyk@gmail.com","Page":{"Content":paragraph,"subject":"xxxx"}
+  var bearer = "Bearer " + idKey;
+  var data = {
+    "ParentJournalId": 2636,
+    "JournalName": bookName, "email": "pwujczyk@gmail.com", "Page": { "Content": paragraph, "subject": "xxxx" }
   }
   var options = {
-    'method' : 'post',
+    'method': 'post',
     'contentType': 'application/json',
     // 'headers':{
     //   'authorization':bearer
     //  },
-    'payload' : JSON.stringify(data)
+    'payload': JSON.stringify(data)
   };
 
   Logger.log(url);
   Logger.log(options);
 
-  var response=UrlFetchApp.fetch(url, options);
-  var responseText=response.getContentText()
+  var response = UrlFetchApp.fetch(url, options);
+  var responseText = response.getContentText()
   Logger.log(responseText);
   return responseText;
 }
 
-function pushParagraphsToJournalApi(bookName,paragraphs)
-{
-  for(var i=0;i<paragraphs.length;i++){
+function pushParagraphsToJournalApi(bookName, paragraphs) {
+  for (var i = 0; i < paragraphs.length; i++) {
     console.log(paragraphs[i]);
-    CreateJournal(bookName,paragraphs[i])
+    CreateJournal(bookName, paragraphs[i])
   }
 }
 
 function processDokument(id) {
   var doc = DocumentApp.openById(id);
-  var body=doc.getBody().getText();
-  var x=doc.getHeader();
-  var name=doc.getName();
-  var startPosition=name.indexOf("„")
-  var bookName=name.substring(startPosition+1,name.length-1)
-  var paragraphs=doc.getParagraphs();
-  var resultParagraphts=[]
-  for(var i=1;i<paragraphs.length;i++){
-    var paragraphText=paragraphs[i].getText();
-    var paragraphAtributes=paragraphs[i].getAttributes();
+  var body = doc.getBody().getText();
+  var x = doc.getHeader();
+  var name = doc.getName();
+  var startPosition = name.indexOf("„")
+  var bookName = name.substring(startPosition + 1, name.length - 1)
+  var paragraphs = doc.getParagraphs();
+  var resultParagraphts = []
+  var resultString = '';
+  for (var i = 1; i < paragraphs.length; i++) {
+    var paragraphText = paragraphs[i].getText();
+    var paragraphAtributes = paragraphs[i].getAttributes();
     //console.log(z.BACKGROUND_COLOR)
-    if (paragraphAtributes.BACKGROUND_COLOR=="#fde096" && paragraphText!="")
-    {
+    if (paragraphAtributes.FONT_SIZE == 16 && paragraphText != "") {
+      console.log("Publishing the chapter")
+      CreateJournal(bookName, resultString)
+      resultString = "";
+    }
+    if (paragraphAtributes.BACKGROUND_COLOR == "#fde096" && paragraphText != "") {
       //console.log(x);
       //console.log(z.BACKGROUND_COLOR)
       resultParagraphts.push(paragraphText);
-      
+
+      resultString += paragraphText + '\n\r'
+
     }
   }
-  pushParagraphsToJournalApi(bookName,resultParagraphts);
+  //CreateJournal(bookName,resultString)
+  //pushParagraphsToJournalApi(bookName,resultString);
+
 }
 
 function processDirectory() {
