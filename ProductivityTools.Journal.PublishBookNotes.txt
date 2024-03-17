@@ -8,7 +8,7 @@ function CreateJournal(bookName, paragraph, idKey) {
   var bearer = "Bearer " + idKey;
   var data = {
     "ParentJournalId": 2636,
-    "JournalName": bookName, "email": "pwujczyk@gmail.com", "Page": { "Content": paragraph, "subject": "xxxx" }
+    "JournalName": bookName, "email": "pwujczyk@gmail.com", "Page": { "Content": paragraph, "subject": "xxxx", 'ContentType': 'Slate' }
   }
   var options = {
     'method': 'post',
@@ -35,6 +35,18 @@ function pushParagraphsToJournalApi(bookName, paragraphs) {
   }
 }
 
+//'[{"type":"title","children":[{"text":"Glaskologia"}]},{"type":"ul","children":[{"type":"li","children":[{"type":"lic","children":[{"text":"Punkt21"}]}]}]}]'
+
+function getOpening(chapterName) {
+  return '[{"type":"title","children":[{"text":"' + chapterName + '"}]}';//,{"type":"ul","children":[{"type":"li","children":[{"type":"lic","children":[{"text":"Punkt21"}]}]}]}
+  //]'
+}
+
+function getClosing() {
+  return ']'
+}
+
+
 function processDokument(id) {
   var doc = DocumentApp.openById(id);
   var body = doc.getBody().getText();
@@ -44,22 +56,28 @@ function processDokument(id) {
   var bookName = name.substring(startPosition + 1, name.length - 1)
   var paragraphs = doc.getParagraphs();
   var resultParagraphts = []
-  var resultString = '';
+  var resultString = "";
   for (var i = 1; i < paragraphs.length; i++) {
     var paragraphText = paragraphs[i].getText();
     var paragraphAtributes = paragraphs[i].getAttributes();
     //console.log(z.BACKGROUND_COLOR)
-    if (paragraphAtributes.FONT_SIZE == 16 && paragraphText != "") {
+    if (paragraphAtributes.FONT_SIZE == 16 && paragraphText!="" &&resultString != "") {
       console.log("Publishing the chapter")
+      resultString += getClosing();
       CreateJournal(bookName, resultString)
-      resultString = "";
+      resultString = ""
     }
+
+    if (paragraphAtributes.FONT_SIZE == 16 && resultString == "") {
+      resultString = getOpening(paragraphText);
+    }
+    
     if (paragraphAtributes.BACKGROUND_COLOR == "#fde096" && paragraphText != "") {
       //console.log(x);
       //console.log(z.BACKGROUND_COLOR)
       resultParagraphts.push(paragraphText);
 
-      resultString += paragraphText + '\n\r'
+      resultString += ',{"type":"ul","children":[{"type":"li","children":[{"type":"lic","children":[{"text":"'+paragraphText+'"}]}]}]}';
 
     }
   }
