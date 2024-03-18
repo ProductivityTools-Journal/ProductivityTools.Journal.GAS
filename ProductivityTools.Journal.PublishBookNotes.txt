@@ -52,8 +52,16 @@ function processDokument(id) {
   var body = doc.getBody().getText();
   var x = doc.getHeader();
   var name = doc.getName();
-  var startPosition = name.indexOf("„")
-  var bookName = name.substring(startPosition + 1, name.length - 1)
+  if (name.includes("Notatki")) {
+    var startPosition = name.indexOf("„")
+    var bookName = name.substring(startPosition + 1, name.length - 1)
+  }
+  else {
+    var startPosition = name.indexOf("\"")
+    var bookName = name.substring(startPosition + 1, name.length - 1)
+
+  }
+
   var paragraphs = doc.getParagraphs();
   var resultParagraphts = []
   var resultString = "";
@@ -61,7 +69,7 @@ function processDokument(id) {
     var paragraphText = paragraphs[i].getText();
     var paragraphAtributes = paragraphs[i].getAttributes();
     //console.log(z.BACKGROUND_COLOR)
-    if (paragraphAtributes.FONT_SIZE == 16 && paragraphText!="" &&resultString != "") {
+    if (paragraphAtributes.FONT_SIZE == 16 && paragraphText != "" && resultString != "") {
       console.log("Publishing the chapter")
       resultString += getClosing();
       CreateJournal(bookName, resultString)
@@ -71,13 +79,13 @@ function processDokument(id) {
     if (paragraphAtributes.FONT_SIZE == 16 && resultString == "") {
       resultString = getOpening(paragraphText);
     }
-    
+
     if (paragraphAtributes.BACKGROUND_COLOR == "#fde096" && paragraphText != "") {
       //console.log(x);
       //console.log(z.BACKGROUND_COLOR)
       resultParagraphts.push(paragraphText);
 
-      resultString += ',{"type":"ul","children":[{"type":"li","children":[{"type":"lic","children":[{"text":"'+paragraphText+'"}]}]}]}';
+      resultString += ',{"type":"ul","children":[{"type":"li","children":[{"type":"lic","children":[{"text":"' + paragraphText + '"}]}]}]}';
 
     }
   }
