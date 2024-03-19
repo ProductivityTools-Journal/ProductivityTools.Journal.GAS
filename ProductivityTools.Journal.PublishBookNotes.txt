@@ -2,7 +2,7 @@ function CreateJournal(bookName, paragraph, idKey) {
   Logger.log(idKey);
 
 
-  var url = 'https://apijournal.productivitytools.top:8022/api/Meetings/SaveBookJournal'
+  var url = 'https://apijournal.productivitytools.top:8022/api/Book/SaveBookJournal'
 
   //var parentId=PropertiesService.getScriptProperties().getProperty("ParentId");
   var bearer = "Bearer " + idKey;
