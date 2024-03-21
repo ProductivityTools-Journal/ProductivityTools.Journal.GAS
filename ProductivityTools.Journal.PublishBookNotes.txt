@@ -1,4 +1,4 @@
-function CreateJournal(bookName, paragraph, idKey) {
+function CreateJournal(bookName, subject, paragraph, idKey) {
   Logger.log(idKey);
 
 
@@ -8,7 +8,7 @@ function CreateJournal(bookName, paragraph, idKey) {
   var bearer = "Bearer " + idKey;
   var data = {
     "ParentJournalId": 2636,
-    "JournalName": bookName, "email": "pwujczyk@gmail.com", "Page": { "Content": paragraph, "subject": "xxxx", 'ContentType': 'Slate' }
+    "JournalName": bookName, "email": "pwujczyk@gmail.com", "Page": { "Content": paragraph, "subject": subject, 'ContentType': 'Slate' }
   }
   var options = {
     'method': 'post',
@@ -65,6 +65,7 @@ function processDokument(id) {
   var paragraphs = doc.getParagraphs();
   var resultParagraphts = []
   var resultString = "";
+  var subject="";
   for (var i = 1; i < paragraphs.length; i++) {
     var paragraphText = paragraphs[i].getText();
     var paragraphAtributes = paragraphs[i].getAttributes();
@@ -72,12 +73,13 @@ function processDokument(id) {
     if (paragraphAtributes.FONT_SIZE == 16 && paragraphText != "" && resultString != "") {
       console.log("Publishing the chapter")
       resultString += getClosing();
-      CreateJournal(bookName, resultString)
+      CreateJournal(bookName,subject, resultString)
       resultString = ""
     }
 
     if (paragraphAtributes.FONT_SIZE == 16 && resultString == "") {
-      resultString = getOpening(paragraphText);
+      subject=paragraphText;
+      resultString = getOpening(subject);
     }
 
     if (paragraphAtributes.BACKGROUND_COLOR == "#fde096" && paragraphText != "") {
