@@ -1,8 +1,22 @@
+function getSrverUrl(){
+  return "https://apijournal.productivitytools.top:8022/api/"
+}
+function getCustomToken(){
+  var url = getSrverUrl()+'/CustomToken/GetGAS'
+
+  var response = UrlFetchApp.fetch(url);
+  var customToken=response.getContentText();
+  Logger.log(customToken);
+  return customToken;
+  Logger.log(response);
+}
+
+
 function CreateJournal(bookName, subject, paragraph, idKey) {
   Logger.log(idKey);
 
 
-  var url = 'https://apijournal.productivitytools.top:8022/api/Book/SaveBookJournal'
+  var url = getSrverUrl()+'/Book/SaveBookJournal'
 
   //var parentId=PropertiesService.getScriptProperties().getProperty("ParentId");
   var bearer = "Bearer " + idKey;
